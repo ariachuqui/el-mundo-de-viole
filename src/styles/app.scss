@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
+// ============= UTILS =============
+@import './utils/variables';
+
+// ============= BASE =============
+@import './base/normalize';
+@import './base/settings';
+@import './base/fonts';
+
+// ============= MODULES =============
+@import './modules/grid';
+@import './modules/btn';
+@import './modules/form';
+@import './modules/generals';
+
+// ============= LAYOUTS =============
+@import './layout/nav';
+@import './layout/showcase';
+@import './layout/draw1';
+@import './layout/details';
+
+// ============= PAGES =============
+@import './pages/auth';
+@import './pages/cuentos-screen';
+@import './pages/single-cuento';
+@import './pages/dibujos-screen';

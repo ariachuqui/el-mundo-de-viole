@@ -1,0 +1,16 @@
+.showcase__content {
+    display: inline-block;
+    margin: 2rem 0  8rem;
+}
+
+.showcase__title {
+    padding: .7rem 0;
+    display: inline-block;
+}
+
+@media screen and (min-width: 600px) {
+    .showcase {
+        text-align: center ;
+        margin-left: -1em;
+    }
+}

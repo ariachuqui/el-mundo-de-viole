@@ -1,0 +1,45 @@
+.draw1 {
+    width: 35vw;
+    min-width: 8.125rem;
+    max-width: 11rem;
+    position: absolute;
+    top: 0;
+    right: -7em;
+    z-index: -100;
+}
+
+.draw2 {
+    right: -8.5rem;
+}
+
+
+#hat {
+    animation: 1.5s infinite alternate animation-hat;
+    transform: translateY(.3em);
+}
+
+#flower {
+    animation: 2s infinite alternate animation-flower;
+    transform: rotate(3deg);
+    transform-origin: 80%;
+}
+
+#sun {
+    animation: 2s infinite alternate animation-sun;
+    transform: rotate(-10deg);
+}
+
+@keyframes animation-hat {
+    0%{transform: translateY(.3em);}
+    100%{transform: translateY(-.3em);}
+}
+
+@keyframes animation-flower {
+    0%{transform: rotate(3deg);}
+    100%{transform: rotate(-3deg);}
+}
+
+@keyframes animation-sun {
+    0%{transform: rotate(-10deg);}
+    100%{transform: rotate(10deg);}
+}

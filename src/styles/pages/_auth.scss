@@ -1,0 +1,18 @@
+.auth {
+    height: 100vh;
+    background: #F7ECFE;
+}
+
+.auth__form-container {
+    max-width: 500px;
+    position: fixed;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 95%;
+    padding: 2rem .7rem;
+    border-radius: 10px;
+
+    background: white;
+}

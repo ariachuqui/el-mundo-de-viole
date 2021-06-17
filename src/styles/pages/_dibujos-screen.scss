@@ -1,0 +1,60 @@
+.my-masonry-grid {
+    display: -webkit-box; /* Not needed if autoprefixing */
+    display: -ms-flexbox; /* Not needed if autoprefixing */
+    display: flex;
+    margin-left: -.8rem; /* gutter size offset */
+    width: 90%;
+}
+.my-masonry-grid_column {
+    padding-left: .8rem; /* gutter size */
+    background-clip: padding-box;
+}
+
+.dibujos-item {
+    position: relative;
+    border-radius: 10px;
+    margin-bottom: .8rem;
+    
+    cursor: pointer;
+    
+    img { vertical-align: bottom; }
+    
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: black;
+        border-radius: inherit;
+        transition: $transition;
+        opacity: 0;
+    }
+    
+}
+
+.dibujos__single-dibujo {
+    position: fixed;
+    background: rgba(0, 0, 0, .8);
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.dibujos__single-dibujo-img {
+    max-height: 80vh;
+    margin-top: 1rem;
+}
+
+@media screen and (min-width: 768px) {
+    .dibujos-item:hover {
+        &::after {
+            opacity: .4;
+        }
+    }
+}
+
+
+  
