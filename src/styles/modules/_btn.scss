@@ -1,4 +1,5 @@
 .btn {
+    display: block;
     padding: .8em 4em;
     border-radius: 5px;
     letter-spacing: 2px;
@@ -8,4 +9,16 @@
 }
 
 
+.btn-1 {
+    background: $purple;
+    color: white;
+    border: 2px solid transparent;
 
+    transition: $transition;
+
+    &:hover {
+        background: white;
+        color: $purple;
+        border: 2px solid $purple;
+    }
+}

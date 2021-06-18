@@ -1,13 +1,24 @@
 import React from 'react';
+import { Redirect, useParams } from 'react-router-dom';
 
-import { data } from '../data/data';
+import { getCuentoByURL } from '../helpers/getCuentoByURL';
 
 import { Details } from './ui/Details';
 import { Draw2 } from './ui/Draw2';
 
 export const SingleCuentoScreen = () => {
 
-    const { name, contain } = data[0].cuentos[0];
+    const { url } = useParams();
+
+    //can found one or not(404)
+    const cuento = getCuentoByURL( url );
+
+    //error 404
+    if( !cuento )  
+        return <Redirect to="/"/>
+
+    //if we find it, we use it
+    const {name , contain} = cuento;
 
     return (
         <div className="single-cuento relative">

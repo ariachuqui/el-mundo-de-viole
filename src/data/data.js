@@ -6,6 +6,7 @@ export const data = [
       cuentos: [
       {
          id:'1',
+         url:'el-baile',
          name: 'El Baile',
          contain: `En una corte centroeuropea vivía una vez un príncipe que se iba a casar.
          -Tienes que aprender a bailar, porque pronto será tu boda y el baile real no puede celebrarse sin que lo inicies tu –le dijeron un día.
@@ -31,6 +32,7 @@ export const data = [
       },
       {
          id:'2',
+         url:'vacas',
          name:'Vacas',
          contain: `Érase una vaca próspera y bien alimentada, que vivía en un país de verdes praderas. Pero la vaca no era feliz:
          -Qué aburrimiento. No le veo sentido a esta vida de pastos eternos y “dolce far niente”.
@@ -48,26 +50,31 @@ export const data = [
       },
       {
          id:'3',
+         url:'dos-osos',
          name:'Dos osos',
          contain: ''
       },
       {
          id:'4',
+         url:'el-poder',
          name:'El poder',
          contain: ''
       },
       {
          id:'5',
+         url:'el-tigre',
          name:'El tigre',
          contain: ''
       },
       {
          id:'6',
+         url:'el-folio',
          name:'El folio',
          contain: ''
       },
       {
          id:'7',
+         url:'intrucciones-para-teletransportarse',
          name:'Instrucciones para teletransportarse',
          contain: ''
       },

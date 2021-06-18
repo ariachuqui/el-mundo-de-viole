@@ -26,33 +26,34 @@ export const DibujosScreen = () => {
       
 
     return (
-        <div className="relative">
-           <div className="showcase container">
-                <div className="showcase__content relative">
-                    <h2 className="showcase__title font-title color-purple">Los dibujos de Viole</h2>
-                    <Draw3 />
+        <div>
+           <div className="animate__animated animate__fadeInRight">
+               <div className="showcase container">
+                    <div className="showcase__content relative">
+                        <h2 className="showcase__title font-title color-purple">Los dibujos de Viole</h2>
+                        <Draw3 />
+                    </div>
                 </div>
-            </div>
-
-            <div className="flex-center">
-                <Masonry
-                    breakpointCols={ breakpointColumns }
-                    className="my-masonry-grid"
-                    columnClassName="my-masonry-grid_column">
-                    {
-                        dibujos.map(({ id, name, img }) => (
-                            <article
-                                className="dibujos-item" 
-                                key={ id }
-                                onClick={ () => showImage(id, name, img) }
-                            >
-                                <img className="img" src={img} alt={name} />
-                            </article>
-                        ))
-                    }
-                </Masonry>
-            </div>
-
+    
+                <div className="flex-center">
+                    <Masonry
+                        breakpointCols={ breakpointColumns }
+                        className="my-masonry-grid"
+                        columnClassName="my-masonry-grid_column">
+                        {
+                            dibujos.map(({ id, name, img }) => (
+                                <article
+                                    className="dibujos-item" 
+                                    key={ id }
+                                    onClick={ () => showImage(id, name, img) }
+                                >
+                                    <img className="img" src={img} alt={name} />
+                                </article>
+                            ))
+                        }
+                    </Masonry>
+                </div>
+            </div>   
             {
                 state && <SingleDibujo infoImg={ infoImg } setShowImage={setShowImage}/>
             }

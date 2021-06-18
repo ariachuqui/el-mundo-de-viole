@@ -1,16 +1,39 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+
+import { startLogin } from '../../action/auth';
+
+import { useForm } from '../../hooks/useForm';
 
 export const LoginScreen = () => {
+
+    const dispatch = useDispatch();
+
+    const [ {name, password}, handleInputChange ] = useForm({
+        name: 'Viole',
+        password: '123546'
+    });
+
+    const handleSubmit = ( e ) => {
+        e.preventDefault();
+        dispatch( startLogin(name, password) );
+    }
+
     return (
         <main className="auth">
             <div className="auth__form-container">
-                <form action="#" className="form">
+                <form 
+                    className="form"
+                    onClick={handleSubmit}
+                >
                     <div className="input-container relative">
                         <input 
                             className="input absolute" 
                             type="text"
-                            id="name" 
+                            id="name"
+                            name="name"
+                            value={name}
+                            onChange={ handleInputChange } 
                             required
                             autoComplete = 'off'
                         />
@@ -29,7 +52,10 @@ export const LoginScreen = () => {
                         <input 
                             className="input absolute" 
                             type="password"
-                            id="password" 
+                            id="password"
+                            name="password"
+                            value={password}
+                            onChange={ handleInputChange } 
                             required
                             autoComplete = 'off'
                         />
@@ -43,6 +69,11 @@ export const LoginScreen = () => {
     
                         <span className="form__line absolute"></span>
                     </div>
+               
+                    <button 
+                        className="btn btn-1"
+                        type="submit"
+                    > Login </button>
                 </form>
             </div>
         </main>

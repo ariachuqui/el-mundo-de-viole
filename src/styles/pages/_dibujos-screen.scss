@@ -37,6 +37,7 @@
 .dibujos__single-dibujo {
     position: fixed;
     background: rgba(0, 0, 0, .8);
+    z-index: 100;
     top: 0;
     bottom: 0;
     right: 0;
