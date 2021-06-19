@@ -1,22 +1,30 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+
+import { toggleShowSidebar } from '../../action/ui';
 
 export const NothingSelected = () => {
 
-    const { activeCrud } = useSelector( state => state.ui );
+    const { showSidebar } = useSelector(state => state.ui)
+    const dispatch = useDispatch();
+
+    const toggleSidebar = () => {
+        dispatch( toggleShowSidebar() );
+    }
 
     return (
 
-        <div className="edit__nothing-container">
-            
-            <div className="edit__nothing-content">
-                <p>Selecciona un { activeCrud } 
-                    <br />
-                    o crea uno nuevo
-                </p>
-                <i className="far fa-star fa-4x mt-5"></i>
-            </div>
+        <main className="edit__nothing-container flex-center text-center relative edit__showsidebar">
+            <i 
+                class={`fas fa-chevron-right fa-2x color-white arrow arrow-left ${showSidebar && 'arrow-clicked'}`}
+                onClick = { toggleSidebar }
+            ></i>
 
-        </div>
+            <p className="font-subtitle color-white">Selecciona 
+                <br />
+                o crea uno nuevo
+            </p>
+        </main>
     )
 }

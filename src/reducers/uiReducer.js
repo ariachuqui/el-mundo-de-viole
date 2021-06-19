@@ -2,6 +2,7 @@ import { types } from "../types/types";
 
 const initialState = { 
     cuentos: [],
+    showSidebar: true
 }
 
 export const uiReducer = ( state = initialState, action ) => {
@@ -12,6 +13,12 @@ export const uiReducer = ( state = initialState, action ) => {
             return {
                 ...state,
                 cuentos: action.payload
+            }
+
+        case types.uiShowSidebar:
+            return {
+                ...state,
+                showSidebar: state.showSidebar ? false : true
             }
 
         default:

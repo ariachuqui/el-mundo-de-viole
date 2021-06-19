@@ -1,0 +1,27 @@
+.arrow {
+    position: absolute;
+    padding: .5rem;
+    cursor: pointer;
+    transition: $transition;
+    top: .5rem;
+    
+    &:hover {
+        transform: translateY(-4px);
+        opacity: .9;
+    }
+}
+
+.arrow-left {
+    left: 1.4rem;
+}
+
+.arrow-right {
+    right: 1.4rem;
+}
+
+.arrow-clicked {
+    transform: rotate(180deg);
+    &:hover {
+        transform: translateY(-4px) rotate(180deg);
+    }
+}

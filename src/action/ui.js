@@ -17,6 +17,10 @@ export const startSearchigCuentos = ( search = '' ) => {
     }
 }
 
+export const toggleShowSidebar = () => ({
+    type: types.uiShowSidebar
+})
+
 const cuentosFound = ( arr ) => ({
     type: types.uiGetAllCuentos,
     payload: arr

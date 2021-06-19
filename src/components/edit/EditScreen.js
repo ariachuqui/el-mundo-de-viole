@@ -4,7 +4,7 @@ import React from "react";
 // import { EditArticleScreen } from "./EditArticleScreen";
 import { NothingSelected } from "./NothingSelected";
 // import { CrudSelectorSidebar } from "./CrudSelectorSidebar";
-// import { Sidebar } from "./Sidebar";
+import { Sidebar } from "./Sidebar";
 // import { EditAlbumScreen } from "./EditAlbumScreen";
 
 
@@ -15,8 +15,9 @@ export const EditScreen = () => {
 
 
     return (
-        <div>
+        <div className="edit">
             <NothingSelected  />
+            <Sidebar />
 
         </div>
         // <div

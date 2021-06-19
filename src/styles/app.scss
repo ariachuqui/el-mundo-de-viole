@@ -13,6 +13,7 @@
 @import './modules/grid';
 @import './modules/btn';
 @import './modules/form';
+@import './modules/arrows';
 @import './modules/generals';
 
 // ============= LAYOUTS =============
@@ -20,9 +21,11 @@
 @import './layout/showcase';
 @import './layout/draw1';
 @import './layout/details';
+@import './layout/sidebar';
 
 // ============= PAGES =============
 @import './pages/auth';
 @import './pages/cuentos-screen';
 @import './pages/single-cuento';
 @import './pages/dibujos-screen';
+@import './pages/edit';
