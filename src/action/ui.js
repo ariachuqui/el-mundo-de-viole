@@ -21,6 +21,11 @@ export const toggleShowSidebar = () => ({
     type: types.uiShowSidebar
 })
 
+export const setActiveCrud = ( activeCrud ) => ({
+    type: types.uiSetActiveCrud,
+    payload: activeCrud
+});
+
 const cuentosFound = ( arr ) => ({
     type: types.uiGetAllCuentos,
     payload: arr

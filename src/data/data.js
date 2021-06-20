@@ -8,6 +8,7 @@ export const data = [
          id:'1',
          url:'el-baile',
          name: 'El Baile',
+         imgUrl: 'https://www.dondeir.com/wp-content/uploads/2020/04/clases-de-baile-virtuales-maestra.jpg',
          contain: `En una corte centroeuropea vivía una vez un príncipe que se iba a casar.
          -Tienes que aprender a bailar, porque pronto será tu boda y el baile real no puede celebrarse sin que lo inicies tu –le dijeron un día.
          - Vale.
@@ -34,6 +35,7 @@ export const data = [
          id:'2',
          url:'vacas',
          name:'Vacas',
+         imgUrl: 'https://azulzero.com/wp-content/uploads/2019/12/vacas.jpg',
          contain: `Érase una vaca próspera y bien alimentada, que vivía en un país de verdes praderas. Pero la vaca no era feliz:
          -Qué aburrimiento. No le veo sentido a esta vida de pastos eternos y “dolce far niente”.
          -¿Y qué? -le preguntaban las colegas de manada, que nunca se acostumbraban a su forma de hablar.
@@ -52,30 +54,47 @@ export const data = [
          id:'3',
          url:'dos-osos',
          name:'Dos osos',
-         contain: ''
+         imgUrl: '',
+         contain: `Érase una vaca próspera y bien alimentada, que vivía en un país de verdes praderas. Pero la vaca no era feliz:
+         -Qué aburrimiento. No le veo sentido a esta vida de pastos eternos y “dolce far niente”.
+         -¿Y qué? -le preguntaban las colegas de manada, que nunca se acostumbraban a su forma de hablar.
+         -Que siento vacía mi vida, todo el día comiendo y sin nada mejor que hacer.
+         …………………………………..
+         Érase al mismo tiempo una vaca flaca, que apenas comía, ya que había nacido en un país desértico y sin pastos. Desde que se despertaba hasta el anochecer, todo su afán era buscar alguna mala hierba que llevarse a la boca. Cuando lo conseguía, eso sí, se sentía inmensamente feliz.
+         -¿Cuál será el colmo de la felicidad? -le preguntó otra vaca flaca un buen día.
+         -Vivir en un país de verdes praderas y pastos perpetuos, sin duda.
+         …………………………………
+         Eso piensan todas las vacas pobres del mundo.
+         Ni se pueden imaginar lo mucho que sufren todas las vacas ricas del mundo.
+         Las vacas, claro, son animales irracionales.
+         No como tu y como yo…`
       },
       {
          id:'4',
          url:'el-poder',
          name:'El poder',
+         imgUrl: 'https://www.dondeir.com/wp-content/uploads/2020/04/clases-de-baile-virtuales-maestra.jpg',
          contain: ''
       },
       {
          id:'5',
          url:'el-tigre',
          name:'El tigre',
+         imgUrl: 'https://www.dondeir.com/wp-content/uploads/2020/04/clases-de-baile-virtuales-maestra.jpg',
          contain: ''
       },
       {
          id:'6',
          url:'el-folio',
          name:'El folio',
+         imgUrl: 'https://www.dondeir.com/wp-content/uploads/2020/04/clases-de-baile-virtuales-maestra.jpg',
          contain: ''
       },
       {
          id:'7',
          url:'intrucciones-para-teletransportarse',
          name:'Instrucciones para teletransportarse',
+         imgUrl: 'https://www.dondeir.com/wp-content/uploads/2020/04/clases-de-baile-virtuales-maestra.jpg',
          contain: ''
       },
       ],

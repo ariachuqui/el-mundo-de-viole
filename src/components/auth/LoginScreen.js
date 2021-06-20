@@ -23,7 +23,7 @@ export const LoginScreen = () => {
         <main className="auth">
             <div className="auth__form-container">
                 <form 
-                    className="form"
+                    className="form-1"
                     onClick={handleSubmit}
                 >
                     <div className="input-container relative">

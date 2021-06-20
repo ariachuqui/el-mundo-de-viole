@@ -3,5 +3,6 @@ export const types = {
     authLogout: '[Auth] Logout',
 
     uiGetAllCuentos: '[UI] Get all cuentos',
-    uiShowSidebar: '[UI] Handle Show Sidebar'
+    uiShowSidebar: '[UI] Handle Show Sidebar',
+    uiSetActiveCrud: '[UI] Set active crud',
 }

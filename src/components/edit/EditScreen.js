@@ -1,24 +1,34 @@
 import React from "react";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { EditCuento } from "./EditCuento";
+import { EditDibujos } from "./EditDibujos";
 
-// import { EditArticleScreen } from "./EditArticleScreen";
 import { NothingSelected } from "./NothingSelected";
-// import { CrudSelectorSidebar } from "./CrudSelectorSidebar";
 import { Sidebar } from "./Sidebar";
-// import { EditAlbumScreen } from "./EditAlbumScreen";
 
 
 export const EditScreen = () => {
 
     // const { active } = useSelector( state => state.crud );
     // const { showSidebar, showCrudSelector, activeCrud } = useSelector( state => state.ui );
-
+    const { activeCrud } = useSelector( state => state.ui );
 
     return (
         <div className="edit">
-            <NothingSelected  />
             <Sidebar />
 
+            {
+                ( !activeCrud ) && <NothingSelected  />
+            }
+
+        
+            {
+                ( activeCrud === "cuentos" ) && <EditCuento />
+            }
+
+{
+                ( activeCrud === "dibujos" ) && <EditDibujos />
+            }
         </div>
         // <div
         //     className={ showSidebar ? "d-flex-between" : "edit__active d-flex-between" }

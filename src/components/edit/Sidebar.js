@@ -2,7 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
-import { toggleShowSidebar } from '../../action/ui';
+import { logout } from '../../action/auth';
+import { setActiveCrud, toggleShowSidebar } from '../../action/ui';
+import { Searcher } from '../ui/Searcher';
+
 
 export const Sidebar = () => {
 
@@ -13,6 +16,19 @@ export const Sidebar = () => {
         dispatch( toggleShowSidebar() );
     }
 
+    const handleLogout = () => {
+        dispatch( logout() )
+    }
+
+    const newCuento = (  ) => {
+        dispatch( setActiveCrud("cuentos")  )
+        dispatch( toggleShowSidebar() )
+    }
+
+    const newDibujo = (  ) => {
+        dispatch( setActiveCrud("dibujos")  )
+        dispatch( toggleShowSidebar() )
+    }
 
     return (
         <aside className={`sidebar ${showSidebar && 'show-sidebar'}`}>
@@ -38,7 +54,7 @@ export const Sidebar = () => {
                 <h2 className="container font-subtitle color-black">Sesion</h2>
                 <div 
                     className="sidebar-selection"
-                    // onClick={handleLogout}
+                    onClick={handleLogout}
                 >
                     <div className="container flex-alignCenter">
                         <div className="sidebar__circle flex-center">
@@ -53,13 +69,19 @@ export const Sidebar = () => {
 
             <section className="sidebar__section">
                 <h2 className="container font-subtitle color-black">Crear</h2>
-                <div className="sidebar-selection">
+                <div 
+                    className="sidebar-selection"
+                    onClick={ newCuento }
+                >
                     <div className="container flex-alignCenter">
                         <i className="fas fa-plus color-purple"></i>
-                        <p className="margin-left-10 color-purple font-100">Nuevo Ceunto</p>
+                        <p className="margin-left-10 color-purple font-100">Nuevo Cuento</p>
                     </div>
                 </div>
-                <div className="sidebar-selection">
+                <div 
+                    className="sidebar-selection"
+                    onClick={ newDibujo }
+                >
                     <div className="container flex-alignCenter">
                         <i className="fas fa-plus color-purple"></i>
                         <p className="margin-left-10 color-purple font-100">Nuevo Dibujo</p>
@@ -72,6 +94,8 @@ export const Sidebar = () => {
             <section className="sidebar__section">
                 <h2 className="container font-subtitle color-black">Cuentos Creados</h2>
             </section>
+
+            <Searcher />
 
         </aside>
     )

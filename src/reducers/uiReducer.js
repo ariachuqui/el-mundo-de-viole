@@ -2,7 +2,8 @@ import { types } from "../types/types";
 
 const initialState = { 
     cuentos: [],
-    showSidebar: true
+    showSidebar: true,
+    activeCrud: null,
 }
 
 export const uiReducer = ( state = initialState, action ) => {
@@ -20,6 +21,12 @@ export const uiReducer = ( state = initialState, action ) => {
                 ...state,
                 showSidebar: state.showSidebar ? false : true
             }
+
+        case types.uiSetActiveCrud:
+            return {
+                    ...state,
+                    activeCrud: action.payload
+            };
 
         default:
             return state;

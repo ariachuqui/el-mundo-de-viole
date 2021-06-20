@@ -18,7 +18,7 @@ export const SingleCuentoScreen = () => {
         return <Redirect to="/"/>
 
     //if we find it, we use it
-    const {name , contain} = cuento;
+    const {name , contain, imgUrl} = cuento;
 
     return (
         <div className="single-cuento relative">
@@ -31,6 +31,15 @@ export const SingleCuentoScreen = () => {
             </div>
 
             <div className="single-cuento__container relative">
+                {
+                    ( imgUrl ) &&
+                        <img
+                            src={ imgUrl }
+                            alt={ name }
+                            className="img"
+                        />
+                }
+
                 <p className="article-text font-100 color-black">
                     {contain}
                 </p>

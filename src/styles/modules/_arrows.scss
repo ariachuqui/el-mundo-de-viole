@@ -4,6 +4,7 @@
     cursor: pointer;
     transition: $transition;
     top: .5rem;
+    z-index: 100;
     
     &:hover {
         transform: translateY(-4px);

@@ -15,7 +15,10 @@ export const NothingSelected = () => {
 
     return (
 
-        <main className="edit__nothing-container flex-center text-center relative edit__showsidebar">
+        <main 
+            className={`edit__nothing-container flex-center text-center relative
+                        ${ showSidebar && 'edit__showsidebar'}`}
+        >
             <i 
                 class={`fas fa-chevron-right fa-2x color-white arrow arrow-left ${showSidebar && 'arrow-clicked'}`}
                 onClick = { toggleSidebar }
