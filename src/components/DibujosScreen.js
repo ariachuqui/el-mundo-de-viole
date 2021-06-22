@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Masonry from 'react-masonry-css';
-
-import { data } from '../data/data';
+import { useSelector } from 'react-redux';
 
 import { SingleDibujo } from './SingleDibujo';
 import { Draw3 } from './ui/Draw3';
@@ -9,14 +8,14 @@ import { Draw3 } from './ui/Draw3';
 export const DibujosScreen = () => {
 
     const [{state, infoImg}, setShowImage] = useState({state: false, infoImg: false});
+    const { dibujos } = useSelector(state => state.crud)
 
-    const showImage = ( id, name, img ) => {
+    const showImage = ( id, img ) => {
 
-        const infoImg = { id, name, img}
+        const infoImg = { id, img}
 
         setShowImage( p => ({ ...p, state: true, infoImg}) )
     }
-    const { dibujos } = data[0];
 
     const breakpointColumns = {
         default: 3,
@@ -41,13 +40,13 @@ export const DibujosScreen = () => {
                         className="my-masonry-grid"
                         columnClassName="my-masonry-grid_column">
                         {
-                            dibujos.map(({ id, name, img }) => (
+                            dibujos.map(({ id, img }) => (
                                 <article
                                     className="dibujos-item" 
                                     key={ id }
-                                    onClick={ () => showImage(id, name, img) }
+                                    onClick={ () => showImage(id, img) }
                                 >
-                                    <img className="img" src={img} alt={name} />
+                                    <img className="img" src={img} alt={img} />
                                 </article>
                             ))
                         }

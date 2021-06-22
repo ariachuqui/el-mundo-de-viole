@@ -1,27 +1,68 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
+import { setActive } from '../../action/crud';
+
 import { toggleShowSidebar } from '../../action/ui';
+import { useForm } from '../../hooks/useForm';
 import { EditNav } from './EditNav';
 
 
 export const EditCuento = () => {
-    const { showSidebar } = useSelector(state => state.ui)
+
+    //HOOKS
     const dispatch = useDispatch();
+    const { active } = useSelector(state => state.crud)
+    const [ formValues, handleInputChange, reset] = useForm( active );
+    const { showSidebar } = useSelector(state => state.ui)
+    
+    //DESTRUCTURING
+    const { name, contain, id, imgUrl } = formValues;
 
+    //USEEFFECTS
+    const activeId = useRef( active.id );
 
-    // const imgUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png"
-    const imgUrl = null;
+    useEffect(() => {
+        
+        if( active.id !== activeId.current || active.imgUrl !== imgUrl ) {
+            reset(active);
+            activeId.current = active.id;
+        }
 
+    }, [active, reset]);
+
+    useEffect(() => {
+        
+        dispatch( setActive(formValues) );
+
+    }, [formValues, dispatch])
+
+    // // Set formValues if active change (open cuento) : id
+    // //Set formValues if activeImage Change : imgUrl
+    // useEffect( () => {
+    //     if ( id !== active.id || imgUrl !== active.imgUrl ) {
+    //         reset(active);
+    //     }
+    // }, [active, reset, id, imgUrl] );
+
+    // console.log(formValues);
+
+    // //Set Active Values Redux
+    // useEffect(() => {
+    //     dispatch( setActive( formValues ) );
+    // }, [ formValues, dispatch ])
+
+    //FUNCTIONS onClick
     const toggleSidebar = () => {
         dispatch( toggleShowSidebar() );
+        
     }
 
     return (
-        <main className={`edit__cuento height-100 relative ${ showSidebar && 'edit__showsidebar'}`}>
+        <main className={`height-100 relative ${ showSidebar && 'edit__showsidebar'}`}>
             <i 
-                class={`fas fa-chevron-right fa-2x color-white arrow arrow-left ${showSidebar && 'arrow-clicked'}`}
+                className={`fas fa-chevron-right fa-2x color-white arrow arrow-left ${showSidebar && 'arrow-clicked'}`}
                 onClick = { toggleSidebar }
             ></i>
 
@@ -32,16 +73,16 @@ export const EditCuento = () => {
                     type="text"
                     placeholder="Titulo"
                     className="input color-d-purple font-title"
-                    name="title"
-                    // value={title}
-                    // onChange={handleInputChange}
+                    name="name"
+                    value={name}
+                    onChange={handleInputChange}
                 />
 
                 {
                     ( imgUrl )
                         ?   <img
                                 src={ imgUrl }
-                                // alt={ title }
+                                alt={ name }
                                 className="edit__img img"
                             />
                         :   <p className="font-text"> Imagen no insertada </p>
@@ -51,9 +92,9 @@ export const EditCuento = () => {
                 <textarea
                     placeholder="Texto del Cuento"
                     className="textarea article-text font-100 color-black"
-                    name="body"
-                    // value={body}
-                    // onChange={handleInputChange}
+                    name="contain"
+                    value={contain}
+                    onChange={handleInputChange}
                 ></textarea>
             </div> 
 

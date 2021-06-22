@@ -22,8 +22,7 @@ export const SingleDibujo = ({infoImg, setShowImage}) => {
                 }}
             >
                 <div>
-                    <h2 className="font-title color-purple text-center"> {name} </h2>
-                    <img className="dibujos__single-dibujo-img" src={img} alt={name} />
+                    <img className="dibujos__single-dibujo-img" src={img} alt={img} />
                 </div>
             </OutsideClickHandler>
          </div>

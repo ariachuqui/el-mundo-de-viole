@@ -4,13 +4,24 @@ import {
     Switch,
     Route
   } from "react-router-dom";
+
+import { data } from '../data/data';
+import { readDibujos } from '../action/crud';
+
   
 import { LoginScreen } from '../components/auth/LoginScreen';
 import { EditScreen } from '../components/edit/EditScreen';
 import { SingleCuentoScreen } from '../components/SingleCuentoScreen';
 import { DashboardRoutes } from './DashboardRoutes';
+import { useDispatch } from 'react-redux';
 
 export const AppRouter = () => {
+
+    const dispatch = useDispatch();
+
+    const { dibujos } = data[0];
+    dispatch( readDibujos( dibujos ) );
+
     return (
         <Router>
             <div>

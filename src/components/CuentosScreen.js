@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 
 export const CuentosScreen = () => {
 
-    const { cuentos } = useSelector(state => state.ui)
+    const { cuentos } = useSelector(state => state.crud)
 
     return (
         <main className="animate__animated animate__fadeInLeft">
@@ -19,7 +19,7 @@ export const CuentosScreen = () => {
                 </div>
             </div>
 
-            <Searcher cuentos={ true }/>
+            <Searcher />
         
             <section className="cuentos-screen_cuentos-container flex-between flex-wrap container">
                 {

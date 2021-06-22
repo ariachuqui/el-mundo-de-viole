@@ -10,12 +10,6 @@ export const uiReducer = ( state = initialState, action ) => {
 
     switch ( action.type ) {
 
-        case types.uiGetAllCuentos:
-            return {
-                ...state,
-                cuentos: action.payload
-            }
-
         case types.uiShowSidebar:
             return {
                 ...state,

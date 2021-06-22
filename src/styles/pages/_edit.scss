@@ -1,13 +1,19 @@
 //EDIT SCREEN
 .edit {
     height: 100vh;
-    overflow: hidden;
+    overflow-y: scroll;
 }
 
 .edit__showsidebar {
     width: 73%;
     margin-right: 0;
     margin-left: auto;
+}
+
+//EDIT SIDEBAR 
+.edit__single-cuento {
+    width: 100%;
+    padding: .6rem .2rem;
 }
 
 //NOTHING SELECTED
@@ -87,6 +93,41 @@
     max-height: 25vh;
 }
 
+//EDIT DIBUJOS SCREEN
+.edit__dibujos {
+    padding-top: 3rem;
+
+    .dibujos-item {
+        &::after {
+            opacity: .4;
+        }
+
+        &:hover {
+            .edit__delete {
+                color: red;
+            }
+            &::after {
+                opacity: .2;
+            }
+        }
+    }
+}
+
+.edit-dibujos__add {
+    padding: 5rem 0;
+    border-radius: 10px;
+    margin-bottom: .8rem;
+}
+
+.edit__delete {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: lighten($color: red, $amount: 30);
+    z-index: 200;
+
+    transition: $transition;
+}
 
 
 

@@ -20,7 +20,7 @@ export const NothingSelected = () => {
                         ${ showSidebar && 'edit__showsidebar'}`}
         >
             <i 
-                class={`fas fa-chevron-right fa-2x color-white arrow arrow-left ${showSidebar && 'arrow-clicked'}`}
+                className={`fas fa-chevron-right fa-2x color-white arrow arrow-left ${showSidebar && 'arrow-clicked'}`}
                 onClick = { toggleSidebar }
             ></i>
 

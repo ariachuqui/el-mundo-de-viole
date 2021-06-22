@@ -3,15 +3,21 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
 import { logout } from '../../action/auth';
+import { setActive } from '../../action/crud';
 import { setActiveCrud, toggleShowSidebar } from '../../action/ui';
+
+import { getCuentoByURL } from '../../helpers/getCuentoByURL';
 import { Searcher } from '../ui/Searcher';
 
 
 export const Sidebar = () => {
 
+    //HOOKS
     const { showSidebar } = useSelector(state => state.ui)
+    const { cuentos } = useSelector(state => state.crud)
     const dispatch = useDispatch();
 
+    //FUNCTIONS ONCLICK
     const toggleSidebar = () => {
         dispatch( toggleShowSidebar() );
     }
@@ -21,13 +27,23 @@ export const Sidebar = () => {
     }
 
     const newCuento = (  ) => {
-        dispatch( setActiveCrud("cuentos")  )
-        dispatch( toggleShowSidebar() )
+        dispatch( setActiveCrud("cuentos") );
+        dispatch( toggleShowSidebar() );
+        dispatch( setActive( {name:'', contain:'', id: null, imgUrl:''} ) );
+    }
+
+    const updateCuento = ( url ) => {
+        const cuentoToUpdate = getCuentoByURL( url );
+        if( cuentoToUpdate ) {
+            dispatch( setActiveCrud("cuentos")  );
+            dispatch( toggleShowSidebar() );
+            dispatch( setActive( cuentoToUpdate ) );
+        }
     }
 
     const newDibujo = (  ) => {
-        dispatch( setActiveCrud("dibujos")  )
-        dispatch( toggleShowSidebar() )
+        dispatch( setActiveCrud("dibujos")  );
+        dispatch( toggleShowSidebar() );
     }
 
     return (
@@ -96,6 +112,24 @@ export const Sidebar = () => {
             </section>
 
             <Searcher />
+
+            <section className="cuentos-screen_cuentos-container container">
+                {
+                    cuentos.map(({ id, name, url }) => (
+                        <article
+                            className="edit__single-cuento cuentos-screen_cuento text-center" 
+                            onClick={() => updateCuento( url )}
+                            key={ id }
+                        >
+                            <h2 className="cuentos-screen_title font-100 color-s-d-purple">{ name }</h2>
+                        </article>
+                    ))
+                }
+                {
+                    cuentos.length === 0 
+                    && <p className="font-200 color-purple">Ningún cuento fue encontrado</p>
+                }
+            </section>
 
         </aside>
     )

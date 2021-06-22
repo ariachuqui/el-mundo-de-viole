@@ -1,21 +1,18 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { startSearchigCuentos } from '../../action/ui';
+import { startSearchigCuentos } from '../../action/crud';
 
 import { useForm } from '../../hooks/useForm';
 
-export const Searcher = ({ cuentos = false }) => {
+export const Searcher = () => {
 
     const dispatch = useDispatch(0);
     const [ { search }, handleInputChange ] = useForm();
 
     useEffect(() => {
-        
-        if( cuentos )
-            dispatch( startSearchigCuentos( search ) )
-
-    }, [search])
+        dispatch( startSearchigCuentos( search ) )
+    }, [search, dispatch])
 
     return (
         <form className="nav__form container">
