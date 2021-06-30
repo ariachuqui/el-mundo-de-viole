@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
-import { logout } from '../../action/auth';
+import { startLogout } from '../../action/auth';
 import { setActive } from '../../action/crud';
 import { setActiveCrud, toggleShowSidebar } from '../../action/ui';
 
@@ -23,7 +23,7 @@ export const Sidebar = () => {
     }
 
     const handleLogout = () => {
-        dispatch( logout() )
+        dispatch( startLogout() )
     }
 
     const newCuento = (  ) => {

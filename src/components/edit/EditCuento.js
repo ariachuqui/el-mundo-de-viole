@@ -18,7 +18,7 @@ export const EditCuento = () => {
     const { showSidebar } = useSelector(state => state.ui)
     
     //DESTRUCTURING
-    const { name, contain, id, imgUrl } = formValues;
+    const { name, contain, imgUrl } = formValues;
 
     //USEEFFECTS
     const activeId = useRef( active.id );
@@ -30,7 +30,7 @@ export const EditCuento = () => {
             activeId.current = active.id;
         }
 
-    }, [active, reset]);
+    }, [active, reset, imgUrl]);
 
     useEffect(() => {
         

@@ -10,8 +10,8 @@ export const LoginScreen = () => {
     const dispatch = useDispatch();
 
     const [ {name, password}, handleInputChange ] = useForm({
-        name: 'Viole',
-        password: '123546'
+        name: 'asd',
+        password: '123456'
     });
 
     const handleSubmit = ( e ) => {
@@ -24,7 +24,7 @@ export const LoginScreen = () => {
             <div className="auth__form-container">
                 <form 
                     className="form-1"
-                    onClick={handleSubmit}
+                    onSubmit={ handleSubmit }
                 >
                     <div className="input-container relative">
                         <input 

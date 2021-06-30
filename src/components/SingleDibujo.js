@@ -11,7 +11,7 @@ export const SingleDibujo = ({infoImg, setShowImage}) => {
         )
     }
     
-    const {id, name, img} = infoImg;
+    const {imgName, imgUrl} = infoImg;
 
     return (
 
@@ -22,7 +22,7 @@ export const SingleDibujo = ({infoImg, setShowImage}) => {
                 }}
             >
                 <div>
-                    <img className="dibujos__single-dibujo-img" src={img} alt={img} />
+                    <img className="dibujos__single-dibujo-img" src={imgUrl} alt={imgName} />
                 </div>
             </OutsideClickHandler>
          </div>

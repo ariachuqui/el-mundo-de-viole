@@ -1,7 +1,9 @@
 export const types = {
     //************ Auth ************
+    authCheckingFinish: '[Auth] Finish checking login state',
     authLogin: '[Auth] Login',
     authLogout: '[Auth] Logout',
+    authStartTokenRenew: '[Auth] Start token renew',
 
     //************ ui ************
     uiShowSidebar: '[UI] Handle Show Sidebar',

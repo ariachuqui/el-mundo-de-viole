@@ -65,14 +65,14 @@ export const EditDibujos = () => {
 
                     {/* Creation of each photo  */} 
                     {
-                        dibujos.map(({ id, name, img }) => (
+                        dibujos.map(({ id, imgName, imgUrl }) => (
                             <article
                                 className="dibujos-item relative" 
                                 onClick={ () => handleDelete( id ) }
                                 key={ id }
                             >   
                                 <i className="edit__delete fas fa-trash fa-4x absolute"></i>
-                                <img className="img" src={img} alt={name} />
+                                <img className="img" src={imgUrl} alt={imgName} />
                             </article>
                         ))
                     }

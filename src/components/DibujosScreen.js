@@ -10,9 +10,9 @@ export const DibujosScreen = () => {
     const [{state, infoImg}, setShowImage] = useState({state: false, infoImg: false});
     const { dibujos } = useSelector(state => state.crud)
 
-    const showImage = ( id, img ) => {
+    const showImage = ( id, imgUrl, imgName ) => {
 
-        const infoImg = { id, img}
+        const infoImg = { id, imgUrl, imgName}
 
         setShowImage( p => ({ ...p, state: true, infoImg}) )
     }
@@ -40,13 +40,13 @@ export const DibujosScreen = () => {
                         className="my-masonry-grid"
                         columnClassName="my-masonry-grid_column">
                         {
-                            dibujos.map(({ id, img }) => (
+                            dibujos.map(({ id, imgUrl, imgName }) => (
                                 <article
                                     className="dibujos-item" 
                                     key={ id }
-                                    onClick={ () => showImage(id, img) }
+                                    onClick={ () => showImage(id, imgUrl, imgName) }
                                 >
-                                    <img className="img" src={img} alt={img} />
+                                    <img className="img" src={imgUrl} alt={imgName} />
                                 </article>
                             ))
                         }

@@ -1,13 +1,39 @@
 import Swal from "sweetalert2";
 import { types } from "../types/types";
 
-
 import { data } from "../data/data";
 import { imgUpload } from "../helpers/imgUpload";
+import { fetchWithoutToken, fetchFileWithToken } from "../helpers/fetch";
 
+//******************* GENERAL *******************
+//ASYNC 
+export const startUploadImg = ( img ) => {
+    return async(dispatch, getState) => { 
+        const { active } = getState().crud;
 
-//******************* ASYNC *******************
-//cuentos
+        const formData = new FormData();
+        formData.append( 'file', img );
+
+        const res = await fetchFileWithToken('uploads/', formData, 'POST');
+        const body = await res.json();
+        console.log(body);
+
+        if( body.imgUrl && body.imgName ) {
+            const {imgUrl, imgName} = body;
+            dispatch( setActive( { ...active, imgUrl, imgName } ) ) 
+        }
+    }
+
+}
+
+//SYNC
+export const setActive = ( active ) => ({
+    type: types.crudSetActive,
+    payload: active
+});
+
+//******************* CUENTOS *******************
+//ASYNC 
 export const startSearchigCuentos = ( search = '' ) => {
     const { cuentos } = data[0];
 
@@ -41,33 +67,42 @@ export const startDeletingCuento = ( id ) => {
     return (dispatch) =>  { dispatch( deleteCuento( id ) ) };
 }
 
-export const startUploadImg = ( img ) => {
+//SYNC
+const readCuentos = ( arr ) => ({
+    type: types.curdReadCuentos,
+    payload: arr
+});
 
-    return async(dispatch, getState) => { 
-        const { active } = getState().crud;
+const createCuento = ( cuento ) => ({
+    type: types.curdCreateCuento,
+    payload: cuento
+})
 
-        //create a swal loading
-        Swal.fire({
-            title: 'Subiendo dibujo.',
-            text: 'Por favor espere...',
-            showConfirmButton: false,
-            allowOutsideClick: false,
-            willOpen: () => {
-                Swal.showLoading();
-            },
-        });
-    
-        //upload image
-        const imgUrl = await imgUpload( img );
-        Swal.close();
-    
-        dispatch( setActive( { ...active, imgUrl } ) ) 
+const updateCuento = ( cuento ) => ({
+    type: types.curdUpdateCuentos,
+    payload: cuento
+})
 
+const deleteCuento = ( id ) => ({
+    type: types.curdDeleteCuentos,
+    payload: id
+})
+
+
+//******************* DIBUJOS *******************
+//ASYNC 
+export const startReadingDibujos = () => {
+    return async(dispatch) => {
+
+        const res = await fetchWithoutToken('dibujos/?limit=10');
+        const { dibujos } = await res.json();
+
+        if( dibujos.length !== 0 ) {
+            dispatch( readDibujos( dibujos ) );
+        }
     }
-
 }
 
-//dibujos
 export const startCreatingDibujo = ( img ) => {
     return async(dispatch) =>  {
         //create a swal loading
@@ -94,35 +129,9 @@ export const startCreatingDibujo = ( img ) => {
     };
 }
 
-//******************* SYNC *******************
-export const setActive = ( active ) => ({
-    type: types.crudSetActive,
-    payload: active
-});
 
-//cuentos
-const readCuentos = ( arr ) => ({
-    type: types.curdReadCuentos,
-    payload: arr
-});
-
-const createCuento = ( cuento ) => ({
-    type: types.curdCreateCuento,
-    payload: cuento
-})
-
-const updateCuento = ( cuento ) => ({
-    type: types.curdUpdateCuentos,
-    payload: cuento
-})
-
-const deleteCuento = ( id ) => ({
-    type: types.curdDeleteCuentos,
-    payload: id
-})
-
-//dibujos
-export const readDibujos = ( arr ) => ({
+//SYNC
+const readDibujos = ( arr ) => ({
     type: types.curdReadDibujos,
     payload: arr
 });
@@ -131,6 +140,13 @@ const createDibujo = ( dibujo ) => ({
     type: types.curdCreateDibujo,
     payload: dibujo
 });
+
+
+
+
+
+
+
 
 
 
