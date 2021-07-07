@@ -1,24 +1,29 @@
 import Swal from "sweetalert2";
 
 
-export const imgUpload = async( img ) => {
+const baseUrl = process.env.REACT_APP_API_URL;
 
-    const url = 'https://api.cloudinary.com/v1_1/decnb4uyu/upload';
+export const imgUpload = async( img, endpoint = 'uploads/' ) => {
+
+    const url = `${ baseUrl }/${endpoint}`;
+    const token = localStorage.getItem('token') || '';
 
     const formData = new FormData();
-    
-    formData.append( 'upload_preset', 'mundo-viole' );
     formData.append( 'file', img );
 
     try {   
         const res = await fetch( url, {
             method: 'POST',
+            headers: {
+                'x-token': token 
+            },
             body: formData
         })
 
-        if ( res.ok ) {
-            const response = await res.json();
-            return response.secure_url;
+        const data = await res.json();
+
+        if ( data.imgUrl && data.imgName ) {
+            return data;
         }
         
     } catch (err) {

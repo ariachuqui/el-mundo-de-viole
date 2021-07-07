@@ -2,7 +2,7 @@ import Swal from 'sweetalert2';
 
 export const validateCuento = ( cuento, cuentos ) => {
 
-    if ( !cuento.name.trim() ) {
+    if ( !cuento.title.trim() ) {
         Swal.fire('Oops...', '¡El titulo es obligatorio!', 'error')
         return true
     }
@@ -17,7 +17,7 @@ export const validateCuento = ( cuento, cuentos ) => {
     return false
 }
 
-export const createUrl = ( title ) => {
+export const createUrl = ( title = '' ) => {
     return title.normalize('NFD').replace(/[\u0300-\u036f¿_.~!*''();:@&=+$,/?#[%-+'\]]/g,"").replace(/ /g, "-").toLowerCase();
 }
 

@@ -14,11 +14,11 @@ export const EditCuento = () => {
     //HOOKS
     const dispatch = useDispatch();
     const { active } = useSelector(state => state.crud)
+    const { showSidebar, imgEditCuento } = useSelector(state => state.ui)
     const [ formValues, handleInputChange, reset] = useForm( active );
-    const { showSidebar } = useSelector(state => state.ui)
     
     //DESTRUCTURING
-    const { name, contain, imgUrl } = formValues;
+    const { title, body, imgUrl, imgName } = formValues;
 
     //USEEFFECTS
     const activeId = useRef( active.id );
@@ -38,26 +38,18 @@ export const EditCuento = () => {
 
     }, [formValues, dispatch])
 
-    // // Set formValues if active change (open cuento) : id
-    // //Set formValues if activeImage Change : imgUrl
-    // useEffect( () => {
-    //     if ( id !== active.id || imgUrl !== active.imgUrl ) {
-    //         reset(active);
-    //     }
-    // }, [active, reset, id, imgUrl] );
+    useEffect(() => {
+        if ( imgEditCuento ) {
+            dispatch( setActive({
+                ...formValues,
+                imgUrl: imgEditCuento
+            }) );
+        }
 
-    // console.log(formValues);
-
-    // //Set Active Values Redux
-    // useEffect(() => {
-    //     dispatch( setActive( formValues ) );
-    // }, [ formValues, dispatch ])
+    }, [dispatch, imgEditCuento, formValues])
 
     //FUNCTIONS onClick
-    const toggleSidebar = () => {
-        dispatch( toggleShowSidebar() );
-        
-    }
+    const toggleSidebar = () => { dispatch( toggleShowSidebar() ); }
 
     return (
         <main className={`height-100 relative ${ showSidebar && 'edit__showsidebar'}`}>
@@ -73,8 +65,8 @@ export const EditCuento = () => {
                     type="text"
                     placeholder="Titulo"
                     className="input color-d-purple font-title"
-                    name="name"
-                    value={name}
+                    name="title"
+                    value={title}
                     onChange={handleInputChange}
                 />
 
@@ -82,7 +74,7 @@ export const EditCuento = () => {
                     ( imgUrl )
                         ?   <img
                                 src={ imgUrl }
-                                alt={ name }
+                                alt={ imgName }
                                 className="edit__img img"
                             />
                         :   <p className="font-text"> Imagen no insertada </p>
@@ -92,8 +84,8 @@ export const EditCuento = () => {
                 <textarea
                     placeholder="Texto del Cuento"
                     className="textarea article-text font-100 color-black"
-                    name="contain"
-                    value={contain}
+                    name="body"
+                    value={body}
                     onChange={handleInputChange}
                 ></textarea>
             </div> 

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setActive, startCreatingCuento, startDeletingCuento, startUpdatingCuento, startUploadImg } from '../../action/crud';
-import { setActiveCrud, toggleShowSidebar } from '../../action/ui';
+import { startCreatingCuento, startDeletingCuento, startUpdatingCuento, startUploadImg } from '../../action/crud';
+import { setActiveCrud, setImgEditCuento, toggleShowSidebar } from '../../action/ui';
 
 import { validateDelete } from '../../helpers/alerts';
 import { createUrl, existCuento, validateCuento } from '../../helpers/validate-cuento';
@@ -11,6 +11,7 @@ import { createUrl, existCuento, validateCuento } from '../../helpers/validate-c
 export const EditNav = () => {
     //HOOKS
     const dispatch = useDispatch();
+    const [img, setImg] = useState(null)
     const { active, cuentos } = useSelector(state => state.crud);
 
     //FUNCTIONS ONCLICK
@@ -42,7 +43,7 @@ export const EditNav = () => {
 
         //Create
         //Create url
-        const newUrl = createUrl( active.name );
+        const newUrl = createUrl( active.title );
         active.url = newUrl;
 
         //Validate
@@ -51,14 +52,23 @@ export const EditNav = () => {
             return
 
         //create
+        if( img ) {
+            dispatch( startUploadImg( img ) );
+            setImg( null );
+        }
         dispatch( startCreatingCuento( active ) );
         dispatch( setActiveCrud() );
+        dispatch( setImgEditCuento( null ) );
         dispatch( toggleShowSidebar() );
     }
 
     const handleFileChange = ( e ) => {
-        const img = e.target.files[0];
-        dispatch( startUploadImg( img ) );
+        let imgFile = e.target.files[0];
+        if ( imgFile ) {
+            setImg( imgFile );
+            imgFile = URL.createObjectURL( imgFile );
+            dispatch( setImgEditCuento( imgFile ) );
+        }
     }
 
 
@@ -89,7 +99,6 @@ export const EditNav = () => {
                     Save
                 </button>
 
-                {/* TODO: que solo aparezca cuando ya existe */}
                 <button
                     className="edit__nav-btn edit__nav-btn-delete margin-left-10"
                     onClick={ handleDelete }

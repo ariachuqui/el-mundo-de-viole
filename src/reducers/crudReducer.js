@@ -14,20 +14,26 @@ export const crudReducer = (state = initialState, action) => {
                 active: action.payload,
             };
 
-        case types.curdReadCuentos:
+        case types.crudResetCuentos:
             return {
                 ...state,
-                cuentos: action.payload
+                cuentos: []
             }
 
-        case types.curdCreateCuento:
+        case types.crudScrollingCuentos:
+            return {
+                ...state,
+                cuentos: [ ...state.cuentos, ...action.payload ]
+            }
+
+        case types.crudCreateCuento:
             return {
                 ...state,
                 cuentos: [ action.payload, ...state.cuentos ],
                 active: {},
             }
 
-        case types.curdUpdateCuentos:
+        case types.crudUpdateCuentos:
             return {
                 ...state,
                 cuentos: state.cuentos.map( c  =>
@@ -36,23 +42,35 @@ export const crudReducer = (state = initialState, action) => {
                 active: {},
             }
 
-        case types.curdDeleteCuentos:
+        case types.crudDeleteCuentos:
             return {
                 ...state,
                 cuentos: state.cuentos.filter( c  => c.id !== action.payload ),
                 active: {},
             }
+        
 
-        case types.curdReadDibujos:
+        case types.crudReadDibujos:
             return {
                 ...state,
                 dibujos: action.payload
             }
+        case types.crudScrollingDibujos:
+            return {
+                ...state,
+                dibujos: [ ...state.dibujos, ...action.payload ]
+            }
 
-        case types.curdCreateDibujo:
+        case types.crudCreateDibujo:
             return {
                 ...state,
                 dibujos: [ action.payload, ...state.dibujos ],
+            }
+
+        case types.crudDeleteDibujos:
+            return {
+                ...state,
+                dibujos: state.dibujos.filter( dibujo => dibujo.id !== action.payload ),
             }
         
         default: 

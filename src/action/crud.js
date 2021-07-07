@@ -1,9 +1,10 @@
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 import { types } from "../types/types";
+import { setLoading } from "./ui"
 
-import { data } from "../data/data";
 import { imgUpload } from "../helpers/imgUpload";
-import { fetchWithoutToken, fetchFileWithToken } from "../helpers/fetch";
+import { fetchWithoutToken, fetchWithToken } from "../helpers/fetch";
+import { loadingAlert } from '../helpers/alerts';
 
 //******************* GENERAL *******************
 //ASYNC 
@@ -11,12 +12,7 @@ export const startUploadImg = ( img ) => {
     return async(dispatch, getState) => { 
         const { active } = getState().crud;
 
-        const formData = new FormData();
-        formData.append( 'file', img );
-
-        const res = await fetchFileWithToken('uploads/', formData, 'POST');
-        const body = await res.json();
-        console.log(body);
+        const body = await imgUpload( img );
 
         if( body.imgUrl && body.imgName ) {
             const {imgUrl, imgName} = body;
@@ -34,67 +30,150 @@ export const setActive = ( active ) => ({
 
 //******************* CUENTOS *******************
 //ASYNC 
-export const startSearchigCuentos = ( search = '' ) => {
-    const { cuentos } = data[0];
+export const getCuentosWhenScrolling = ( reset = false, limit = 10 ) => {
+     return async( dispatch, getState ) => {
+        const { pagination } = getState().ui;
+        const { search, page } = pagination;
 
-    if( search === '' ){
-        return (dispatch) => { dispatch( readCuentos( cuentos ) ) }
-    }
+        //We "reset" cuentos and then we do the specific search
+        if( reset ) {
+            dispatch( resetCuentos() );
+        }
 
-    //Get cuentos that match your search
-    const cuentosSearched = cuentos.filter( c => c.name.toLowerCase().includes( search.toLowerCase() ) );
+        //Get cuentos when scrolling and with the specific search
+        try {
+            dispatch( setLoading( true ) );
+            
+            const skip = page * limit;
 
-    return (dispatch) => {
-        dispatch( readCuentos( cuentosSearched ));
+            const resp = await fetchWithoutToken( `cuento/?limit=${ limit }&skip=${ skip }&search=${ search }` );
+            if ( !resp.ok ) {
+                return console.error( 'No se pudieron obtener los cuentos.' );
+            }
+            
+            const { cuentos } = await resp.json();
+
+            dispatch( setLoading( false ) );
+            dispatch( scrollingCuentos( cuentos ) );
+            
+        } catch (error) {
+            console.log(error)
+            dispatch( setLoading( false ) );
+        }
+
     }
 }
 
 export const startCreatingCuento = ( cuento ) => {
-    //save in db
-    //create id and save in frontend
-    return (dispatch) =>  { dispatch( createCuento( cuento ) ) };
+
+    return async( dispatch ) => {   
+
+        try {
+            loadingAlert('Creando cuento.')
+
+            cuento.date = new Date().getTime();
+
+            // request to backend
+            const resp = await fetchWithToken( 'cuento', cuento, 'POST' );
+
+            const { newCuento } = await resp.json();
+
+            Swal.close();
+
+            if ( !resp.ok ) {
+               return Swal.fire( 'Ha habido un error al crear el cuento.' );
+            }
+
+            //save in frontend
+            dispatch( createCuento( newCuento ) );
+
+        } catch (error) {
+            console.log(error);
+            return Swal.fire( 'Ha habido un error al crear el cuento.' );
+        }
+
+    };
 }
 
 export const startUpdatingCuento = ( cuento ) => {
-    //find cuento by id
-    //update in db
-    return (dispatch) =>  { dispatch( updateCuento( cuento ) ) };
+
+    return async(dispatch) => {
+        
+        // request to backend
+        try {
+            loadingAlert('Actualizando cuento.')
+
+            const resp = await fetchWithToken( `cuento/${ cuento.id }`, cuento, 'PUT' );
+
+            Swal.close();
+
+            if ( !resp.ok ) {
+               return Swal.fire( 'Ha habido un error al actualizar el cuento.' );
+            }
+
+            dispatch( updateCuento( cuento ) );
+
+        } catch (error) {
+            console.log(error);
+            Swal.fire( 'Ha habido un error al actualizar el cuento.' );
+        }
+    };
 }
 
 export const startDeletingCuento = ( id ) => {
-    //find cuento by id
-    //delete physically in db
-    return (dispatch) =>  { dispatch( deleteCuento( id ) ) };
+
+    return async(dispatch) =>  {
+        try {
+            loadingAlert('Borrando cuento.')
+            
+            // request to backend
+            const resp = await fetchWithToken( `cuento/${ id }`, undefined, 'DELETE' );
+
+            Swal.close();
+
+            if ( !resp.ok ) {
+               return Swal.fire( 'Ha habido un error al borrar el cuento.' );
+            }
+            
+            dispatch( deleteCuento( id ) );
+
+        } catch (error) {
+            console.log(error);
+            Swal.fire( 'Ha habido un error al borrar el cuento.' );
+        }
+    };
 }
 
 //SYNC
-const readCuentos = ( arr ) => ({
-    type: types.curdReadCuentos,
+const resetCuentos = ( arr ) => ({ type: types.crudResetCuentos });
+
+const scrollingCuentos = ( arr ) => ({
+    type: types.crudScrollingCuentos,
     payload: arr
-});
+})
 
 const createCuento = ( cuento ) => ({
-    type: types.curdCreateCuento,
+    type: types.crudCreateCuento,
     payload: cuento
 })
 
 const updateCuento = ( cuento ) => ({
-    type: types.curdUpdateCuentos,
+    type: types.crudUpdateCuentos,
     payload: cuento
 })
 
 const deleteCuento = ( id ) => ({
-    type: types.curdDeleteCuentos,
+    type: types.crudDeleteCuentos,
     payload: id
 })
 
 
 //******************* DIBUJOS *******************
 //ASYNC 
-export const startReadingDibujos = () => {
+export const startReadingDibujos = ( limit = 10 ) => {
     return async(dispatch) => {
 
-        const res = await fetchWithoutToken('dibujos/?limit=10');
+        const res = await fetchWithoutToken(`dibujos/?limit=${ limit }`);
         const { dibujos } = await res.json();
 
         if( dibujos.length !== 0 ) {
@@ -103,43 +182,93 @@ export const startReadingDibujos = () => {
     }
 }
 
+export const getDibujosWhenScrolling = ( page = 1, limit = 10 ) => {
+    return async( dispatch) => {
+        //Get dibujos when scrolling 
+        try {
+            dispatch( setLoading( true ) );
+            const skip = page * limit;
+
+            const resp = await fetchWithoutToken( `dibujos/?limit=${ limit }&skip=${ skip }` );
+            if ( !resp.ok ) {
+                return console.error( 'No se pudieron obtener los dibujos.' );
+            }
+            
+            const { dibujos } = await resp.json();
+
+            dispatch( setLoading( false ) );
+            dispatch( scrollingDibujos( dibujos ) );
+            
+        } catch (error) {
+            console.log(error)
+            dispatch( setLoading( false ) );
+        }
+    }
+}
+
 export const startCreatingDibujo = ( img ) => {
     return async(dispatch) =>  {
         //create a swal loading
-        Swal.fire({
-            title: 'Subiendo dibujo.',
-            text: 'Por favor espere...',
-            showConfirmButton: false,
-            allowOutsideClick: false,
-            willOpen: () => {
-                Swal.showLoading();
-            },
-        });
-
-        //upload image
-        const imgUrl = await imgUpload( img );
-        Swal.close();
-        //create id 
-        //create {img: '' ,id: '' }
+        loadingAlert('Subiendo dibujo.');
+        const body = await imgUpload( img );
+        body.date = new Date().getTime();
+        
         //save in db
-        //create in frontend
-        const newDibujo = { img: imgUrl, id: '123' }
+        const resp = await fetchWithToken( 'dibujos', body, 'POST' );
+        const { newDibujo } = await resp.json();
 
-         dispatch( createDibujo( newDibujo ) ) 
+
+        //create in frontend
+        dispatch( createDibujo( newDibujo ) ) 
+        Swal.close();
     };
+}
+
+export const startDeletingDibujo = ( id ) => {
+    
+    return async( dispatch ) => {
+
+        try {
+            loadingAlert('Borrando dibujo.')
+
+            const resp = await fetchWithToken( `uploads/dibujos/${ id }`, undefined, 'DELETE' );
+
+            Swal.close();
+
+            if ( !resp.ok ) {
+               return Swal.fire( 'Ha habido un error al borrar el dibujo.' );
+            }
+            
+            dispatch( deleteDibujo( id ) );
+
+        } catch (error) {
+            console.log(error);
+            Swal.fire( 'Ha habido un error al borrar el dibujo.' );
+        }
+    } 
 }
 
 
 //SYNC
 const readDibujos = ( arr ) => ({
-    type: types.curdReadDibujos,
+    type: types.crudReadDibujos,
     payload: arr
 });
 
+const scrollingDibujos = ( arr ) => ({
+    type: types.crudScrollingDibujos,
+    payload: arr
+})
+
 const createDibujo = ( dibujo ) => ({
-    type: types.curdCreateDibujo,
+    type: types.crudCreateDibujo,
     payload: dibujo
 });
+
+const deleteDibujo = ( id ) => ({
+    type: types.crudDeleteDibujos,
+    payload: id
+})
 
 
 

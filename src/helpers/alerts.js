@@ -2,7 +2,7 @@ import Swal from 'sweetalert2';
 
 import { toCapitalize } from './toCapitalize';
 
-export const validateDelete = async( thingToEliminate = '',  ) => {
+export const validateDelete = async( thingToEliminate = ''  ) => {
     let res;
 
     await Swal.fire({
@@ -32,3 +32,15 @@ export const validateDelete = async( thingToEliminate = '',  ) => {
 
     return res;
 }
+
+export const loadingAlert = ( msg = '' ) => {
+    Swal.fire({
+      title: msg,
+      text: 'Por favor espere...',
+      showConfirmButton: false,
+      allowOutsideClick: false,
+      willOpen: () => {
+          Swal.showLoading();
+      },
+  });
+  }

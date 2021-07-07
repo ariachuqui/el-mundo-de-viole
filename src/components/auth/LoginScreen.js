@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { startLogin } from '../../action/auth';
 
@@ -7,11 +7,12 @@ import { useForm } from '../../hooks/useForm';
 
 export const LoginScreen = () => {
 
+    const { alerError } = useSelector(state => state.ui)
     const dispatch = useDispatch();
 
     const [ {name, password}, handleInputChange ] = useForm({
-        name: 'asd',
-        password: '123456'
+        name: '',
+        password: ''
     });
 
     const handleSubmit = ( e ) => {
@@ -26,6 +27,13 @@ export const LoginScreen = () => {
                     className="form-1"
                     onSubmit={ handleSubmit }
                 >
+                    {
+                        alerError && 
+                        <div>
+                            <p className="alert-error"> El usuario o la contraseña son incorrectos </p>
+                        </div>
+                    }
+
                     <div className="input-container relative">
                         <input 
                             className="input absolute" 

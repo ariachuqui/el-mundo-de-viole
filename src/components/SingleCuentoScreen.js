@@ -1,31 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { Redirect, useParams } from 'react-router-dom';
 
-import { getCuentoByURL } from '../helpers/getCuentoByURL';
+import { getCuentoByUrlRequest } from '../helpers/getCuentoByURL';
 
 import { Details } from './ui/Details';
 import { Draw2 } from './ui/Draw2';
 
 export const SingleCuentoScreen = () => {
 
+    const [cuento, setCuento] = useState({})
     const { url } = useParams();
 
     //can found one or not(404)
-    const cuento = getCuentoByURL( url );
+    useEffect(() => {
+        const getCuento = async() => {
+            const cuento = await getCuentoByUrlRequest( url );
+            setCuento( cuento );
+        }
+        getCuento();
+    }, [ url ])
 
     //error 404
     if( !cuento )  
         return <Redirect to="/"/>
 
     //if we find it, we use it
-    const {name , contain, imgUrl} = cuento;
+    const {title , body, imgUrl, imgName} = cuento;
 
     return (
         <div className="single-cuento relative">
 
             <div className="showcase container">
                 <div className="showcase__content">
-                    <h2 className="showcase__title font-title color-purple">{ name }</h2>
+                    <h2 className="showcase__title font-title color-purple">{ title }</h2>
                     <Draw2 />
                 </div>
             </div>
@@ -35,13 +43,13 @@ export const SingleCuentoScreen = () => {
                     ( imgUrl ) &&
                         <img
                             src={ imgUrl }
-                            alt={ name }
+                            alt={ imgName }
                             className="img"
                         />
                 }
 
                 <p className="article-text font-100 color-black">
-                    {contain}
+                    {body}
                 </p>
             </div>
 

@@ -16,7 +16,7 @@ import { SingleCuentoScreen } from '../components/SingleCuentoScreen';
 import { DashboardRoutes } from './DashboardRoutes';
 import { PublicRoute } from './PublicRouter';
 import { PrivateRoute } from './PrivateRouter';
-
+import { Spinner } from '../components/ui/Spinner';
 
 
 export const AppRouter = () => {
@@ -29,7 +29,7 @@ export const AppRouter = () => {
     }, [dispatch]);
 
     if( checking ) {
-        return <h1>Espere...</h1>
+        return <Spinner />
     }
 
     dispatch( startReadingDibujos() );

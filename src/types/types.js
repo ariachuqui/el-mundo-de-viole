@@ -6,22 +6,28 @@ export const types = {
     authStartTokenRenew: '[Auth] Start token renew',
 
     //************ ui ************
+    uiPagination: '[UI] Handle Search',
     uiShowSidebar: '[UI] Handle Show Sidebar',
     uiSetActiveCrud: '[UI] Set active crud',
+    uiSetImgEditCuento: '[UI] Set image edit cuento',
+    uiAlertError: '[UI] Handle Alert Error',
+    uiSetLoading: '[UI] Set loading',
     
     //************ curd ************
     crudSetActive: '[CRUD] Set active',
 
     //cuentos
-    curdCreateCuento: '[UI] Create cuento',
-    curdUpdateCuentos: '[UI] Update all cuento',
-    curdReadCuentos: '[UI] Read all cuentos',
-    curdDeleteCuentos: '[UI] Delete cuento',
+    crudCreateCuento: '[CRUD] Create cuento',
+    crudScrollingCuentos: '[CRUD] Scrolling Cuentos',
+    crudUpdateCuentos: '[CRUD] Update all cuento',
+    crudResetCuentos: '[CRUD] Reset all cuentos',
+    crudDeleteCuentos: '[CRUD] Delete cuento',
 
     //dibujos
-    curdReadDibujos: '[UI] Read all dibujos',
-    curdCreateDibujo: '[UI] Create dibujo',
-    curdDeleteDibujos: '[UI] Delete dibujo',
+    crudReadDibujos: '[CRUD] Read all dibujos',
+    crudScrollingDibujos: '[CRUD] Scrolling dibujos',
+    crudCreateDibujo: '[CRUD] Create dibujo',
+    crudDeleteDibujos: '[CRUD] Delete dibujo',
 
     
 }

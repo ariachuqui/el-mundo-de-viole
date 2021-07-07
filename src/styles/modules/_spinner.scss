@@ -1,0 +1,18 @@
+.spinner {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 4px solid rgba(0, 0, 0, .1);
+    border-left-color: $purple;
+    animation: spin .85s linear infinite forwards;
+    margin: 1rem auto;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg)
+    }
+    to {
+        transform: rotate(360deg)
+    }
+}

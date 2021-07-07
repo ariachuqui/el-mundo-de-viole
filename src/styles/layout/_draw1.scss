@@ -13,7 +13,7 @@
 }
 
 
-#hat {
+#hat2 {
     animation: 1.5s infinite alternate animation-hat;
     transform: translateY(.3em);
 }
@@ -29,9 +29,14 @@
     transform: rotate(-10deg);
 }
 
+#circle3 {
+    animation: 2s infinite alternate animation-circle3;
+    transform: rotate(-10deg);
+}
+
 @keyframes animation-hat {
-    0%{transform: translateY(.3em);}
-    100%{transform: translateY(-.3em);}
+    0%{transform: translateY(0);}
+    100%{transform: translateY(.2em);}
 }
 
 @keyframes animation-flower {
@@ -42,4 +47,9 @@
 @keyframes animation-sun {
     0%{transform: rotate(-10deg);}
     100%{transform: rotate(10deg);}
+}
+
+@keyframes animation-circle3 {
+    0%{transform: rotate(-10deg);}
+    100%{transform: rotate(20deg);}
 }

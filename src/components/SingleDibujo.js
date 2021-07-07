@@ -3,8 +3,6 @@ import OutsideClickHandler from 'react-outside-click-handler';
 
 export const SingleDibujo = ({infoImg, setShowImage}) => {
 
-    console.log(infoImg)
-
     if( !infoImg ) {
         return(
             <></>

@@ -40,28 +40,6 @@ export const fetchWithToken = (endpoint, data, method = 'GET') => {
     }
 }
 
-export const fetchFileWithToken = (endpoint, data, method = 'GET') => {
-    const url = `${ baseUrl }/${endpoint}`;
-    const token = localStorage.getItem('token') || '';
-
-
-    if(method === 'GET') {
-        return fetch(url, {
-            method,
-            headers:{
-            'x-token': token
-            }
-        });
-    } else {
-        return fetch (url, {
-            method,
-            headers: {
-                'x-token': token 
-            },
-            body: data
-        })
-    }
-}
 
 
 

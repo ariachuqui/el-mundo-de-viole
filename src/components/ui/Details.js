@@ -6,7 +6,7 @@ export const Details = () => {
             <div className="detail">
                 <svg width="333" height="166" viewBox="0 0 333 166" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M310.755 18.7123H0V166.468H310.755V18.7123Z" fill="#F8ACF2"/>
-                    <path d="M333.036 -0.050293H22.2806V147.705H333.036V-0.050293Z" stroke="#3F3D56" stroke-width="2" stroke-miterlimit="10"/>
+                    <path d="M333.036 -0.050293H22.2806V147.705H333.036V-0.050293Z" stroke="#3F3D56" strokeWidth="2" strokeMiterlimit="10"/>
                 </svg>
             </div>
 
@@ -47,7 +47,7 @@ export const Details = () => {
 
             <div className="detail detail-right">
                 <svg width="128" height="146" viewBox="0 0 128 146" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0)">
+                    <g clipPath="url(#clip0)">
                     <path d="M63.7276 118.691C87.513 118.691 106.795 99.4089 106.795 75.6235C106.795 51.838 87.513 32.5562 63.7276 32.5562C39.9422 32.5562 20.6603 51.838 20.6603 75.6235C20.6603 99.4089 39.9422 118.691 63.7276 118.691Z" fill="#2F2E41"/>
                     <path d="M93.5843 97.9543L82.4204 104.777L94.6446 124.779L105.809 117.956L93.5843 97.9543Z" fill="#2F2E41"/>
                     <path d="M71.2565 111.6L60.0925 118.423L72.3168 138.425L83.4807 131.602L71.2565 111.6Z" fill="#2F2E41"/>
@@ -71,7 +71,7 @@ export const Details = () => {
 
             <div className="detail">
                 <svg width="128" height="146" viewBox="0 0 128 146" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0)">
+                    <g clipath="url(#clip0)">
                     <path d="M63.7276 118.691C87.513 118.691 106.795 99.4089 106.795 75.6235C106.795 51.838 87.513 32.5562 63.7276 32.5562C39.9422 32.5562 20.6603 51.838 20.6603 75.6235C20.6603 99.4089 39.9422 118.691 63.7276 118.691Z" fill="#2F2E41"/>
                     <path d="M93.5843 97.9543L82.4204 104.777L94.6446 124.779L105.809 117.956L93.5843 97.9543Z" fill="#2F2E41"/>
                     <path d="M71.2565 111.6L60.0925 118.423L72.3168 138.425L83.4807 131.602L71.2565 111.6Z" fill="#2F2E41"/>
@@ -95,7 +95,7 @@ export const Details = () => {
             <div className="detail detail-right">
                 <svg width="333" height="166" viewBox="0 0 333 166" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M310.755 18.7123H0V166.468H310.755V18.7123Z" fill="#F8ACF2"/>
-                    <path d="M333.036 -0.050293H22.2806V147.705H333.036V-0.050293Z" stroke="#3F3D56" stroke-width="2" stroke-miterlimit="10"/>
+                    <path d="M333.036 -0.050293H22.2806V147.705H333.036V-0.050293Z" stroke="#3F3D56" strokeWidth="2" strokeMiterlimit="10"/>
                 </svg>
             </div>
 
@@ -137,7 +137,7 @@ export const Details = () => {
             <div className="detail">
                 <svg width="333" height="166" viewBox="0 0 333 166" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M310.755 18.7123H0V166.468H310.755V18.7123Z" fill="#F8ACF2"/>
-                    <path d="M333.036 -0.050293H22.2806V147.705H333.036V-0.050293Z" stroke="#3F3D56" stroke-width="2" stroke-miterlimit="10"/>
+                    <path d="M333.036 -0.050293H22.2806V147.705H333.036V-0.050293Z" stroke="#3F3D56" strokeWidth="2" strokeMiterlimit="10"/>
                 </svg>
             </div>
 
@@ -178,7 +178,7 @@ export const Details = () => {
 
             <div className="detail detail-right">
                 <svg width="128" height="146" viewBox="0 0 128 146" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0)">
+                    <g clipPath="url(#clip0)">
                     <path d="M63.7276 118.691C87.513 118.691 106.795 99.4089 106.795 75.6235C106.795 51.838 87.513 32.5562 63.7276 32.5562C39.9422 32.5562 20.6603 51.838 20.6603 75.6235C20.6603 99.4089 39.9422 118.691 63.7276 118.691Z" fill="#2F2E41"/>
                     <path d="M93.5843 97.9543L82.4204 104.777L94.6446 124.779L105.809 117.956L93.5843 97.9543Z" fill="#2F2E41"/>
                     <path d="M71.2565 111.6L60.0925 118.423L72.3168 138.425L83.4807 131.602L71.2565 111.6Z" fill="#2F2E41"/>
@@ -202,7 +202,7 @@ export const Details = () => {
 
             <div className="detail">
                 <svg width="128" height="146" viewBox="0 0 128 146" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g clip-path="url(#clip0)">
+                    <g clipPath="url(#clip0)">
                     <path d="M63.7276 118.691C87.513 118.691 106.795 99.4089 106.795 75.6235C106.795 51.838 87.513 32.5562 63.7276 32.5562C39.9422 32.5562 20.6603 51.838 20.6603 75.6235C20.6603 99.4089 39.9422 118.691 63.7276 118.691Z" fill="#2F2E41"/>
                     <path d="M93.5843 97.9543L82.4204 104.777L94.6446 124.779L105.809 117.956L93.5843 97.9543Z" fill="#2F2E41"/>
                     <path d="M71.2565 111.6L60.0925 118.423L72.3168 138.425L83.4807 131.602L71.2565 111.6Z" fill="#2F2E41"/>
@@ -226,7 +226,7 @@ export const Details = () => {
             <div className="detail detail-right">
                 <svg width="333" height="166" viewBox="0 0 333 166" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M310.755 18.7123H0V166.468H310.755V18.7123Z" fill="#F8ACF2"/>
-                    <path d="M333.036 -0.050293H22.2806V147.705H333.036V-0.050293Z" stroke="#3F3D56" stroke-width="2" stroke-miterlimit="10"/>
+                    <path d="M333.036 -0.050293H22.2806V147.705H333.036V-0.050293Z" stroke="#3F3D56" strokeWidth="2" strokeMiterlimit="10"/>
                 </svg>
             </div>
 

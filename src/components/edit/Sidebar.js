@@ -1,21 +1,34 @@
 import React from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 
 import { startLogout } from '../../action/auth';
-import { setActive } from '../../action/crud';
-import { setActiveCrud, toggleShowSidebar } from '../../action/ui';
+import { getCuentosWhenScrolling, setActive } from '../../action/crud';
+import { setActiveCrud, toggleShowSidebar, uiPagination } from '../../action/ui';
+
+import { Spinner } from '../ui/Spinner';
+import { Searcher } from '../ui/Searcher';
 
 import { getCuentoByURL } from '../../helpers/getCuentoByURL';
-import { Searcher } from '../ui/Searcher';
 
 
 export const Sidebar = () => {
 
     //HOOKS
-    const { showSidebar } = useSelector(state => state.ui)
+    const { showSidebar, loading, pagination } = useSelector(state => state.ui)
     const { cuentos } = useSelector(state => state.crud)
     const dispatch = useDispatch();
+
+    //VARIABLES
+    const { page, search } = pagination;
+
+    //FUNCTION SCROLLING
+    const handleNext = () => { 
+        const nextPage = page + 1;
+        dispatch( uiPagination( search, nextPage ))
+        dispatch( getCuentosWhenScrolling() )
+    }
 
     //FUNCTIONS ONCLICK
     const toggleSidebar = () => {
@@ -29,11 +42,11 @@ export const Sidebar = () => {
     const newCuento = (  ) => {
         dispatch( setActiveCrud("cuentos") );
         dispatch( toggleShowSidebar() );
-        dispatch( setActive( {name:'', contain:'', id: null, imgUrl:''} ) );
+        dispatch( setActive( {title:'', body:'', id: null, imgUrl:'', imgName:'photo'} ) );
     }
 
     const updateCuento = ( url ) => {
-        const cuentoToUpdate = getCuentoByURL( url );
+        const cuentoToUpdate = getCuentoByURL( url, cuentos );
         if( cuentoToUpdate ) {
             dispatch( setActiveCrud("cuentos")  );
             dispatch( toggleShowSidebar() );
@@ -47,7 +60,10 @@ export const Sidebar = () => {
     }
 
     return (
-        <aside className={`sidebar ${showSidebar && 'show-sidebar'}`}>
+        <aside 
+            id='scrollableDiv'
+            className={`sidebar ${showSidebar && 'show-sidebar'}`}
+        >
             <nav className="container flex-alignCenter">
                 <div 
                     className="arrow arrow-right responsive-d-none"
@@ -87,20 +103,20 @@ export const Sidebar = () => {
                 <h2 className="container font-subtitle color-black">Crear</h2>
                 <div 
                     className="sidebar-selection"
+                    onClick={ newDibujo }
+                >
+                    <div className="container flex-alignCenter">
+                        <i className="fas fa-plus color-purple"></i>
+                        <p className="margin-left-10 color-purple font-100">Editar Dibujos</p>
+                    </div>
+                </div>
+                <div 
+                    className="sidebar-selection"
                     onClick={ newCuento }
                 >
                     <div className="container flex-alignCenter">
                         <i className="fas fa-plus color-purple"></i>
                         <p className="margin-left-10 color-purple font-100">Nuevo Cuento</p>
-                    </div>
-                </div>
-                <div 
-                    className="sidebar-selection"
-                    onClick={ newDibujo }
-                >
-                    <div className="container flex-alignCenter">
-                        <i className="fas fa-plus color-purple"></i>
-                        <p className="margin-left-10 color-purple font-100">Nuevo Dibujo</p>
                     </div>
                 </div>
             </section>
@@ -113,18 +129,33 @@ export const Sidebar = () => {
 
             <Searcher />
 
-            <section className="cuentos-screen_cuentos-container container">
+            <section className="">
+                <InfiniteScroll
+                    dataLength={ cuentos.length }
+                    next={ handleNext }
+                    hasMore={ true }
+                    scrollThreshold = '100%'
+                    scrollableTarget="scrollableDiv"
+                    className="cuentos-screen_cuentos-container container"    
+                >
+                    {
+                        cuentos.map(({ id, title, url }) => (
+                            <article
+                                className="edit__single-cuento cuentos-screen_cuento text-center" 
+                                onClick={() => updateCuento( url )}
+                                key={ id }
+                            >
+                                <h2 className="cuentos-screen_title font-100 color-s-d-purple">{ title }</h2>
+                            </article>
+                        ))
+                    }
+                </InfiniteScroll>
+
                 {
-                    cuentos.map(({ id, name, url }) => (
-                        <article
-                            className="edit__single-cuento cuentos-screen_cuento text-center" 
-                            onClick={() => updateCuento( url )}
-                            key={ id }
-                        >
-                            <h2 className="cuentos-screen_title font-100 color-s-d-purple">{ name }</h2>
-                        </article>
-                    ))
+                    loading &&
+                        <Spinner />
                 }
+
                 {
                     cuentos.length === 0 
                     && <p className="font-200 color-purple">Ningún cuento fue encontrado</p>

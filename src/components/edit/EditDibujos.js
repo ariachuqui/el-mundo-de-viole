@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import { useSelector, useDispatch } from 'react-redux';
 import Masonry from 'react-masonry-css';
 
 import { toggleShowSidebar } from '../../action/ui';
 
-import { data } from '../../data/data';
+import { Spinner } from '../ui/Spinner';
+
 import { validateDelete } from '../../helpers/alerts';
-import { startCreatingDibujo } from '../../action/crud';
+import { getDibujosWhenScrolling, startCreatingDibujo, startDeletingDibujo } from '../../action/crud';
 
 
 export const EditDibujos = () => {
@@ -14,6 +16,8 @@ export const EditDibujos = () => {
      //HOOKS
     const { showSidebar } = useSelector(state => state.ui)
     const { dibujos } = useSelector(state => state.crud)
+    const { loading } = useSelector(state => state.ui);
+    const [page, setPage] = useState( 1 )
     const dispatch = useDispatch();
 
     //VARIABLES
@@ -23,6 +27,13 @@ export const EditDibujos = () => {
         500: 1
     };
 
+    //FUNCTION ON SCROLLING
+    const handleNext = () => { 
+        const nextPage = page + 1;
+        setPage( nextPage );
+        dispatch( getDibujosWhenScrolling( page ) )
+    }
+
     //FUNCTIONS ONCLICK
     const toggleSidebar = () => {
         dispatch( toggleShowSidebar() );
@@ -30,14 +41,18 @@ export const EditDibujos = () => {
 
     const handleAddDibujo = ( e ) => {
         const img = e.target.files[0];
+        if( !img ) return; 
+        //upload image
         dispatch( startCreatingDibujo( img ) );
+
     }
 
     const handleDelete = async( id ) => {
         const isDeleted = await validateDelete('la foto');
         
         if ( isDeleted ) {
-            console.log(`${id} borrado`);
+            
+            dispatch( startDeletingDibujo( id ) );
         }
     }
     
@@ -49,11 +64,18 @@ export const EditDibujos = () => {
                 onClick = { toggleSidebar }
             ></i>
 
-            <div className="flex-center edit__dibujos">
+            <InfiniteScroll
+                    dataLength={ dibujos.length  }
+                    next={ handleNext }
+                    hasMore={ true }
+                    scrollThreshold = '100%'
+                    className="flex-center edit__dibujos"    
+            >
                 <Masonry
                     breakpointCols={ breakpointColumns }
                     className="my-masonry-grid"
-                    columnClassName="my-masonry-grid_column">
+                    columnClassName="my-masonry-grid_column"
+                >
 
                     {/* div to add photo */}                     
                     <div
@@ -77,7 +99,12 @@ export const EditDibujos = () => {
                         ))
                     }
                 </Masonry>
-            </div>
+            </InfiniteScroll>
+            
+            {
+                loading &&
+                    <Spinner />
+            }
 
             {/* input to add photo */}
             <input

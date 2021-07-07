@@ -1,20 +1,32 @@
 import React, { useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import Masonry from 'react-masonry-css';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDibujosWhenScrolling } from '../action/crud';
 
+import { Spinner } from './ui/Spinner';
 import { SingleDibujo } from './SingleDibujo';
 import { Draw3 } from './ui/Draw3';
 
 export const DibujosScreen = () => {
 
     const [{state, infoImg}, setShowImage] = useState({state: false, infoImg: false});
+    const [page, setPage] = useState( 1 )
     const { dibujos } = useSelector(state => state.crud)
+    const { loading } = useSelector(state => state.ui);
+    const dispatch = useDispatch();
 
     const showImage = ( id, imgUrl, imgName ) => {
 
         const infoImg = { id, imgUrl, imgName}
 
         setShowImage( p => ({ ...p, state: true, infoImg}) )
+    }
+
+    const handleNext = () => { 
+        const nextPage = page + 1;
+        setPage( nextPage );
+        dispatch( getDibujosWhenScrolling( page ) )
     }
 
     const breakpointColumns = {
@@ -34,7 +46,13 @@ export const DibujosScreen = () => {
                     </div>
                 </div>
     
-                <div className="flex-center">
+                <InfiniteScroll
+                    dataLength={ dibujos.length }
+                    next={ handleNext }
+                    hasMore={ true }
+                    scrollThreshold = '100%'
+                    className="flex-center"    
+                >
                     <Masonry
                         breakpointCols={ breakpointColumns }
                         className="my-masonry-grid"
@@ -51,7 +69,12 @@ export const DibujosScreen = () => {
                             ))
                         }
                     </Masonry>
-                </div>
+                </InfiniteScroll>
+
+                {
+                    loading &&
+                        <Spinner />
+                }
             </div>   
             {
                 state && <SingleDibujo infoImg={ infoImg } setShowImage={setShowImage}/>

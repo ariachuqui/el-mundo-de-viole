@@ -1,5 +1,6 @@
 import { fetchWithoutToken, fetchWithToken } from "../helpers/fetch";
 import { types } from "../types/types";
+import { handleAlertError } from "./ui";
 
 
 //ASYNC
@@ -7,16 +8,26 @@ export const startLogin = ( name, password ) => {
     
     return async( dispatch ) => {
 
-        const res = await fetchWithoutToken('auth/login', {name, password}, 'POST');
-        const body = await res.json();
-        
-        if( body.token ) {
+        try {
+            const res = await fetchWithoutToken('auth/login', {name, password}, 'POST');
+            const body = await res.json();
+
+            if( !res.ok ) {
+                dispatch( handleAlertError( true ) )
+                return
+            }
+            
             const {token, user} = body;
             //stograge token
             localStorage.setItem('token', token);
 
+            dispatch( handleAlertError( false ) )
             dispatch( login( user.id ) );
+            
+        } catch (error) {
+            console.error(error)
         }
+
 
     }
 }
@@ -24,6 +35,7 @@ export const startLogin = ( name, password ) => {
 export const startCheking = () => {
     return async( dispatch ) => { 
         const res = await fetchWithToken( 'auth/renew' );
+        console.log(res);
         const body = await res.json();
 
         if( body.token) {
